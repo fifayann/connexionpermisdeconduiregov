@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="fr" data-fr-js="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <title>Mon espace candidat | RdvPermis</title>
+
+  <link rel="stylesheet" href="./Mon espace candidat _ RdvPermis_files/dsfr.min.css">
+  <link rel="stylesheet" href="./Mon espace candidat _ RdvPermis_files/utility.min.css">
+  <link rel="stylesheet" href="./Mon espace candidat _ RdvPermis_files/icons.min.css">
+  <link rel="stylesheet" href="./Mon espace candidat _ RdvPermis_files/candidat.css">
+  <link rel="icon" href="https://candidatpermisdeconduiregoov.fr/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="https://candidatpermisdeconduiregoov.fr/static/img/favicon.ico" type="image/x-icon">
+  <style>
+    .erpc-burger {
+      width: 2.75rem; height: 2.75rem; padding: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;
+    }
+    .erpc-burger__icon,
+    .erpc-burger__icon::before,
+    .erpc-burger__icon::after {
+      display: block; width: 1.25rem; height: 2px;
+      background: #161616; border-radius: 1px;
+    }
+    .erpc-burger__icon { position: relative; }
+    .erpc-burger__icon::before,
+    .erpc-burger__icon::after { content: ""; position: absolute; left: 0; }
+    .erpc-burger__icon::before { top: -6px; }
+    .erpc-burger__icon::after  { top:  6px; }
+
+    .erpc-mobile-menu { display: none; }
+    .erpc-mobile-menu.erpc-menu-open {
+      display: block !important; position: fixed !important;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 9999 !important; background: rgba(22, 22, 22, 0.55);
+      overflow-y: auto;
+    }
+    .erpc-mobile-menu__panel {
+      background: #fff; max-width: 360px; margin-left: auto;
+      min-height: 100vh; padding: 1.5rem 1.25rem;
+      box-shadow: -4px 0 16px rgba(0, 0, 0, 0.15);
+      box-sizing: border-box; display: flex; flex-direction: column; gap: 1rem;
+    }
+    .erpc-mobile-menu__close {
+      align-self: flex-end; background: transparent; border: 0;
+      color: #161616; font-size: 0.875rem; cursor: pointer;
+      padding: 0.25rem 0.5rem; display: inline-flex; gap: 0.5rem; align-items: center;
+    }
+    .erpc-mobile-menu__close span { font-size: 1.25rem; line-height: 1; }
+    .erpc-mobile-menu__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+    .erpc-mobile-menu__item {
+      width: 100%; display: inline-flex; align-items: center;
+      padding: 0.625rem 0.875rem; background: #f6f6f6; color: #161616;
+      border: 0; border-radius: 4px; font-size: 1rem; text-align: left;
+    }
+    .erpc-mobile-menu__item--btn { cursor: pointer; background: #000091; color: #fff; }
+
+    @media (max-width: 991.98px) { .fr-header__tools-links { display: none !important; } }
+    @media (min-width: 992px) {
+      .fr-header__navbar { display: none !important; }
+      .erpc-mobile-menu,
+      .erpc-mobile-menu.erpc-menu-open { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+<noscript>Pour accéder à toutes les fonctionnalités de ce site, vous devez activer JavaScript.</noscript>
+
+<div id="root">
+<div class="fr-skiplinks">
+  <nav class="fr-container" role="navigation" aria-label="Accès rapide">
+    <ul class="fr-skiplinks__list">
+      <li><a class="fr-link" href="#contenu">Contenu</a></li>
+      <li><a class="fr-link" href="#footer">Pied de page</a></li>
+    </ul>
+  </nav>
+</div>
+
+<header role="banner" class="fr-header" id="header-navigation">
+  <div class="fr-header__body">
+    <div class="fr-container">
+      <div class="fr-header__body-row">
+        <div class="fr-header__brand fr-enlarge-link">
+          <div class="fr-header__brand-top">
+            <div class="fr-header__logo"><p class="fr-logo">Gouvernement</p></div>
+            <div class="fr-header__navbar">
+              <button id="button-menu-mobile" type="button" class="fr-btn erpc-burger" aria-expanded="false" aria-label="Ouvrir le menu">
+                <span class="erpc-burger__icon" aria-hidden="true"></span>
+                <span class="fr-sr-only">Menu</span>
+              </button>
+            </div>
+            <div class="fr-header__operator">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94 35.16" class="fr-responsive-img erpc-logo" role="img" aria-label="Sécurité routière. Vivre, ensemble." style="max-width:9rem" data-fr-js-ratio="true">
+                <defs>
+                  <clippath id="clippath"><polygon points="54.57 11.48 54.57 23.25 32.29 23.25 32.29 35.16 94 35.16 94 11.48 54.57 11.48"></polygon></clippath>
+                  <clippath id="clippath1"><path clip-rule="evenodd" d="m34.4,25.28v7.52h4.47v-1.39h-2.82v-1.75h2.39v-1.39h-2.39v-1.6h2.82v-1.39h-4.47Zm11.45,0v5.14l-3.2-5.14h-2.04v7.52h1.65v-5.14l3.2,5.14h2.04v-7.52h-1.65Zm9.97,0v7.52h4.47v-1.39h-2.82v-1.75h2.39v-1.39h-2.39v-1.6h2.82v-1.39h-4.47Zm11.74,0l-1.77,3.02-1.77-3.02h-1.99v7.52h1.65v-5.09l1.54,2.56h1.14l1.54-2.56v5.09h1.65v-7.52h-1.99Zm5.7,4.3h.85c.67,0,1.05.33,1.05.92s-.39.92-1.05.92h-.85v-1.83Zm0-2.91h.63c.53,0,.84.27.84.75s-.3.77-.84.77h-.63v-1.52Zm-1.65-1.39v7.52h2.42c1.75,0,2.83-.86,2.83-2.24,0-.76-.42-1.39-1.15-1.76.47-.35.72-.86.72-1.44,0-1.28-.98-2.07-2.56-2.07h-2.26Zm6.78,0v7.52h4.47v-1.51h-2.82v-6.01h-1.65Zm5.78,0v7.52h4.47v-1.39h-2.82v-1.75h2.4v-1.39h-2.4v-1.6h2.82v-1.39h-4.47Zm-34.95,2c0,1.48,1.17,1.99,2.11,2.41.68.3,1.26.55,1.26,1.08,0,.48-.33.77-.88.77s-1.15-.32-1.58-.88l-.05-.06-1.2,1.1.05.05c.72.86,1.61,1.26,2.8,1.26,1.48,0,2.52-.94,2.54-2.3,0-1.51-1.18-2.02-2.12-2.43-.67-.29-1.24-.54-1.24-1.05,0-.42.33-.71.8-.71s.95.29,1.42.9l.05.06,1.22-1.09-.05-.05c-.72-.84-1.61-1.27-2.65-1.27-1.41,0-2.47.95-2.47,2.21Zm40.95-7.53l-1.01,3.3h1.4l1.29-3.3h-1.68ZM1.79,15.01h.77c.58,0,.93.33.93.86,0,.57-.34.9-.93.9h-.77v-1.76Zm-1.65-1.39v7.52h1.65v-2.98h.66l1.98,2.98h1.95l-2.35-3.31c.75-.37,1.16-1.06,1.16-1.93,0-1.4-1.04-2.28-2.71-2.28H.13Zm20.19,0v4.69c0,.94-.53,1.5-1.42,1.5s-1.43-.55-1.43-1.5v-4.69h-1.65v4.56c0,1.95,1.18,3.17,3.07,3.17s3.08-1.22,3.08-3.17v-4.56h-1.65Zm2.83,0v1.51h2.29v6.01h1.65v-6.01h2.29v-1.51h-6.23Zm7.54,7.52h1.65v-7.52h-1.65v7.52Zm3.72-7.52v7.52h4.47v-1.39h-2.82v-1.75h2.39v-1.39h-2.39v-1.6h2.82v-1.39h-4.47Zm7.86,1.39h.77c.57,0,.93.33.93.86,0,.57-.34.9-.93.9h-.77v-1.76Zm-1.65-1.39v7.52h1.65v-2.98h.66l1.98,2.98h1.95l-2.35-3.31c.75-.37,1.16-1.06,1.16-1.93,0-1.4-1.04-2.28-2.71-2.28h-2.34Zm7.12,0v7.52h4.47v-1.39h-2.82v-1.75h2.39v-1.39h-2.39v-1.6h2.82v-1.39h-4.47Zm14.82,0l-2.14,5.62-2.14-5.62h-1.76l2.86,7.52h2.07l2.86-7.52h-1.76Zm2.86,7.52h1.65v-7.52h-1.65v7.52Zm8.79-7.52l-2.14,5.62-2.14-5.62h-1.76l2.86,7.52h2.07l2.86-7.52h-1.76Zm4.51,1.39h.77c.57,0,.93.33.93.86,0,.57-.34.9-.93.9h-.77v-1.76Zm-1.65-1.39v7.52h1.65v-2.98h.66l1.98,2.98h1.95l-2.35-3.31c.75-.37,1.16-1.06,1.16-1.93,0-1.4-1.04-2.28-2.71-2.28h-2.34Zm7.12,0v7.52h4.47v-1.39h-2.82v-1.75h2.4v-1.39h-2.4v-1.6h2.82v-1.39h-4.47Zm-75.97,3.76c0-1.4.98-2.42,2.32-2.42s2.31,1.04,2.31,2.42-.99,2.42-2.31,2.42-2.32-1.02-2.32-2.42Zm-1.7,0c0,2.26,1.73,3.97,4.01,3.97s4.01-1.71,4.01-3.97-1.72-3.97-4.01-3.97-4.01,1.71-4.01,3.97Zm28.51-5.9l1.05,1.57h1.95l-1.08-1.57h-1.92ZM7.17,2.14v7.52h4.47v-1.39h-2.82v-1.75h2.39v-1.39h-2.39v-1.6h2.82v-1.39h-4.47Zm18.62,0v4.69c0,.94-.53,1.49-1.42,1.49s-1.43-.54-1.43-1.49V2.14h-1.65v4.56c0,1.96,1.18,3.17,3.07,3.17s3.08-1.21,3.08-3.17V2.14h-1.65Zm5.37,1.39h.77c.57,0,.93.33.93.86,0,.57-.34.9-.93.9h-.77v-1.76Zm-1.65-1.39v7.52h1.65v-2.98h.66l1.99,2.98h1.88l-2.28-3.31c.75-.37,1.16-1.06,1.16-1.93,0-1.4-1.04-2.28-2.71-2.28h-2.34Zm7.33,7.52h1.65V2.14h-1.65v7.52Zm3.16-7.52v1.51h2.29v6.01h1.65V3.65h2.29v-1.51h-6.23Zm7.81,0v7.52h4.47v-1.39h-2.82v-1.75h2.39v-1.39h-2.39v-1.6h2.82v-1.39h-4.47ZM.35,4.14c0,1.48,1.17,1.99,2.11,2.41.68.3,1.26.55,1.26,1.08,0,.48-.33.77-.88.77s-1.15-.32-1.58-.88l-.05-.06-1.2,1.1.05.06c.72.86,1.61,1.26,2.8,1.26,1.48,0,2.52-.94,2.54-2.3,0-1.51-1.18-2.02-2.12-2.43-.67-.29-1.24-.54-1.24-1.05,0-.42.33-.71.8-.71s.95.29,1.42.9l.05.06,1.21-1.09-.05-.06c-.72-.84-1.61-1.27-2.65-1.27C1.41,1.93.35,2.88.35,4.14Zm12.43,1.76c0,2.26,1.73,3.97,4.01,3.97,1.3,0,2.46-.56,3.18-1.54l.04-.06-1.31-1-.04.06c-.45.63-1.11.98-1.88.98-1.34,0-2.32-1.02-2.32-2.42s.98-2.42,2.32-2.42c.76,0,1.43.35,1.88.98l.04.06,1.31-1.01-.04-.06c-.73-.97-1.9-1.53-3.18-1.53-2.29,0-4.01,1.71-4.01,3.97ZM9.53,0l-1.08,1.57h1.95l1.05-1.57h-1.92Zm40.64,0l-1.08,1.57h1.95l1.05-1.57h-1.92Z"></path></clippath>
+                </defs>
+                <rect clip-path="url(#clippath)" x="31.29" y="10.48" width="63.71" height="25.68" fill="#ffe000"></rect>
+                <rect clip-path="url(#clippath1)" x="-1" y="-1" width="93.85" height="35.01"></rect>
+              </svg>
+            </div>
+          </div>
+          <div class="fr-header__service">
+            <a href="#" class="erpc-lien-header" title="Accueil - RdvPermis"><p class="fr-header__service-title">RdvPermis</p></a>
+            <p class="fr-header__service-tagline">La plateforme officielle pour réserver une place à l'examen du permis de conduire.</p>
+          </div>
+        </div>
+        <div class="fr-header__tools">
+          <div class="fr-header__tools-links" data-fr-js-header-links="true">
+            <ul class="fr-btns-group">
+              <li><a class="fr-btn"><span class="fr-mr-1w fr-icon-user-line fr-icon--sm" aria-hidden="true"></span><span data-user-nom></span></a></li>
+              <li><button id="logout-btn" class="fr-btn"><span class="fr-mr-1w fr-icon-logout-box-r-line fr-icon--sm" aria-hidden="true"></span>Déconnexion</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="erpc-mobile-menu" id="modal-menu-mobile" role="dialog" aria-modal="true" aria-labelledby="button-menu-mobile">
+    <div class="erpc-mobile-menu__panel">
+      <button id="close-menu-mobile" type="button" class="erpc-mobile-menu__close" aria-label="Fermer le menu">
+        Fermer <span aria-hidden="true">✕</span>
+      </button>
+      <ul class="erpc-mobile-menu__list">
+        <li><span class="erpc-mobile-menu__item"><span class="fr-mr-1w fr-icon-user-line fr-icon--sm" aria-hidden="true"></span><span data-user-nom></span></span></li>
+        <li><button id="logout-btn-mobile" type="button" class="erpc-mobile-menu__item erpc-mobile-menu__item--btn"><span class="fr-mr-1w fr-icon-logout-box-r-line fr-icon--sm" aria-hidden="true"></span>Déconnexion</button></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+
+<main role="main" id="contenu">
+  <div class="fr-container">
+    <div data-testid="information-candidat" class="sc-dAlyuH leASdI fr-grid-row fr-mb-3w">
+      <h1 class="fr-h2" id="welcome-title"></h1>
+    </div>
+
+    <div class="sc-jxOSlx bLMgmB">
+      <div class="fr-col-12">
+
+        <div class="sc-kOPcWz glPDWv fr-mb-3w">
+          <p>Catégorie de permis : <b class="fr-text--bold" id="categorie-permis"></b></p>
+        </div>
+
+        <div class="sc-fhzFiK fFbeSq fr-mb-8v">
+          <div class="sc-jEACwC jpdgYO">
+            <h2 class="fr-h3">Historique du/des examen(s) passé(s)</h2>
+
+            <div class="sc-feUZmu dNQUZp">
+
+              <!-- ===================== ACCORDÉON 0 — PRATIQUE ===================== -->
+              <section class="fr-accordion" data-fr-js-accordion="true" id="accordion-pratique">
+                <h3 class="fr-accordion__title">
+                  <button class="fr-accordion__btn" aria-expanded="false" aria-controls="acc-0" type="button" id="acc-0-btn" data-fr-js-collapse-button="true">
+                    <span class="sc-dAbbOL loCUnU">
+                      <span class="sc-fUnMCh eVbdXp"><span id="acc-0-type"></span></span>
+                      <span class="sc-fUnMCh eVbdXp"><time datetime="" class="fr-text--bold date-examen" id="acc-0-date-header"></time></span>
+                      <span class="sc-fUnMCh eVbdXp"><span class="fr-badge fr-badge--success" id="acc-0-badge"></span></span>
+                    </span>
+                  </button>
+                </h3>
+                <div id="acc-0" class="fr-collapse" data-fr-js-collapse="true">
+                  <div data-testid="resultat-pratique-card-body" class="sc-fPXMVe ijbPSC">
+                    <p class="fr-mb-0"><span class="fr-text--sm">Date</span><br>
+                      <time class="fr-text--bold" datetime="" id="acc-0-date"></time></p>
+                    <p class="fr-mb-0"><span class="fr-text--sm">Auto-école</span><br>
+                      <span class="fr-text--bold" id="acc-0-ecole"></span></p>
+                    <p class="fr-mb-0"><span class="fr-text--sm">Résultat de l'examen</span><br>
+                      <span class="fr-text--bold" id="acc-0-resultat"></span></p>
+                    <p class="fr-mb-0"><span class="fr-text--sm">Centre d'examen</span><br>
+                      <span class="fr-text--bold" id="acc-0-centre"></span><br>
+                      <span class="sc-gFqAkR gKfSie fr-text--sm fr-mb-0" id="acc-0-adresse"></span></p>
+                    <p class="fr-mb-0"><span class="fr-text--sm">Examinateur/Examinatrice</span><br>
+                      <span class="fr-text--bold" id="acc-0-examinateur"></span></p>
+
+                    <p class="fr-mb-0" id="acc-0-certificat-wrap">
+                      <a href="#" class="fr-btn" id="acc-0-certificat">
+                        <span class="fr-mr-1w fr-icon-download-line fr-icon--sm" aria-hidden="true"></span>
+                        Télécharger le certificat
+                      </a>
+                    </p>
+                  </div>
+
+                  <div class="sc-dLMFU bOhryb">
+                    <div class="sc-eqUAAy gwsFEy" id="bilan-container">
+                      <h4 class="fr-h3">Bilan de compétences</h4>
+
+                      <!-- 5 tableaux pré-structurés : JS remplit / masque selon les données -->
+                      <div class="fr-table fr-table--layout-fixed" data-bilan-cat="0">
+                        <table>
+                          <caption class="erpc-table__caption" id="bilan-0-caption"></caption>
+                          <thead><tr><th scope="col">Compétence</th><th scope="col">Résultat</th></tr></thead>
+                          <tbody id="bilan-0-tbody"></tbody>
+                        </table>
+                      </div>
+
+                      <div class="fr-table fr-table--layout-fixed" data-bilan-cat="1">
+                        <table>
+                          <caption class="erpc-table__caption" id="bilan-1-caption"></caption>
+                          <thead><tr><th scope="col">Compétence</th><th scope="col">Résultat</th></tr></thead>
+                          <tbody id="bilan-1-tbody"></tbody>
+                        </table>
+                      </div>
+
+                      <div class="fr-table fr-table--layout-fixed" data-bilan-cat="2">
+                        <table>
+                          <caption class="erpc-table__caption" id="bilan-2-caption"></caption>
+                          <thead><tr><th scope="col">Compétence</th><th scope="col">Résultat</th></tr></thead>
+                          <tbody id="bilan-2-tbody"></tbody>
+                        </table>
+                      </div>
+
+                      <div class="fr-table fr-table--layout-fixed" data-bilan-cat="3">
+                        <table>
+                          <caption class="erpc-table__caption" id="bilan-3-caption"></caption>
+                          <thead><tr><th scope="col">Compétence</th><th scope="col">Résultat</th></tr></thead>
+                          <tbody id="bilan-3-tbody"></tbody>
+                        </table>
+                      </div>
+
+                      <div class="fr-table fr-table--layout-fixed" data-bilan-cat="4">
+                        <table>
+                          <caption class="erpc-table__caption" id="bilan-4-caption"></caption>
+                          <thead><tr><th scope="col">Compétence</th><th scope="col">Résultat</th></tr></thead>
+                          <tbody id="bilan-4-tbody"></tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div class="fr-container--fluid">
+                      <div class="sc-gEvEer dTCSmW fr-grid-row">
+                        <h5 class="fr-col fr-h6 fr-ml-2w fr-mt-3w">Résultat de l'examen</h5>
+                        <p class="fr-col fr-ml-2w fr-mt-3w fr-text--lead favorable" id="acc-0-resultat-bilan"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div role="alert" class="fr-alert fr-alert--success sc-aXZVg eIsDYL" id="acc-0-observations-wrap">
+                    <h5 class="fr-alert__title">Observations</h5>
+                    <p id="acc-0-observations"></p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- ===================== ACCORDÉON 1 — CODE ===================== -->
+              <section class="fr-accordion" data-fr-js-accordion="true" id="accordion-code">
+                <h3 class="fr-accordion__title">
+                  <button class="fr-accordion__btn" aria-expanded="false" aria-controls="acc-1" type="button" id="acc-1-btn" data-fr-js-collapse-button="true">
+                    <span class="sc-fHjqPf Rgwae">
+                      <span class="sc-fUnMCh eVbdXp"><span id="acc-1-type"></span></span>
+                      <span class="sc-fUnMCh eVbdXp"><time datetime="" class="fr-text--bold date-examen" id="acc-1-date-header"></time></span>
+                      <span class="sc-fUnMCh eVbdXp"><span class="fr-badge fr-badge--success" id="acc-1-badge"></span></span>
+                    </span>
+                  </button>
+                </h3>
+                <div id="acc-1" class="fr-collapse" data-fr-js-collapse="true">
+                  <div class="sc-hmdomO fbPLfj">
+                    <p class="fr-mb-0"><span class="fr-text--sm">Date</span><br>
+                      <time class="fr-text--bold" datetime="" id="acc-1-date"></time>
+                      <span class="fr-text--sm fr-mb-0 fr-text--bold" id="acc-1-validite"></span></p>
+                    <p class="fr-mb-0"><span class="fr-text--sm fr-mb-0">Auto-école</span><br>
+                      <span class="fr-text--bold" id="acc-1-ecole"></span></p>
+                    <p class="fr-mb-0"><span class="fr-text--sm">Résultat de l'examen</span><br>
+                      <span class="fr-text--bold" id="acc-1-resultat"></span></p>
+                    <p class="fr-mb-0"><span class="fr-text--sm">Dispense pratique</span><br>
+                      <span class="fr-text--bold" id="acc-1-dispense"></span></p>
+                  </div>
+                </div>
+              </section>
+
+            </div>
+          </div>
+
+          <div class="fr-mt-4w">
+            <div class="fr-card fr-card--horizontal">
+              <div class="fr-card__header">
+                <div class="fr-card__img">
+                  <img class="fr-responsive-img" src="./Mon espace candidat _ RdvPermis_files/conduite-supervisee.jpg" alt="" data-fr-js-ratio="true">
+                </div>
+              </div>
+              <div class="fr-card__body">
+                <div class="fr-card__content">
+                  <p class="fr-h4">La conduite supervisée</p>
+                  <p>Elle est <span class="fr-text--bold">accessible pendant la formation initiale ou après échec à l'examen.</span></p>
+                  <p>Ce mode de formation vous permet d'<span class="fr-text--bold">acquérir davantage d'expérience et de confiance au volant</span> avant le passage de votre prochaine épreuve pratique.</p>
+                  <p class="fr-mb-0">N'hésitez pas à <span class="fr-text--bold">vous rapprocher de votre auto-école</span> pour en connaître les conditions et les modalités.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sc-dCFHLb iuispT fr-col-12">
+
+        <div class="erpc-fiche" data-testid="bloc-mandat">
+          <div class="erpc-fiche__header">
+            <span class="erpc-fiche__icone fr-icon-community-line" aria-hidden="true"></span>
+            <h2 class="erpc-fiche__titre">Mon auto-école</h2>
+          </div>
+          <div class="erpc-fiche__body">
+            <div class="fr-p-2w">
+              <div class="sc-lcIPJg cIoMzc">
+                <p class="fr-text--sm fr-m-0">Nom</p>
+                <p class="fr-text--bold fr-mb-2w" id="ecole-nom"></p>
+
+                <p class="fr-text--sm fr-m-0">Email</p>
+                <p class="fr-text--bold fr-m-0"><a href="#" id="ecole-email"></a></p>
+
+                <button id="ea-revocation-mandat-modal-bouton-demarrer" class="fr-btn fr-btn--secondary">Supprimer mon mandat</button>
+              </div>
+            </div>
+            <section class="fr-accordion" data-fr-js-accordion="true">
+              <button class="fr-accordion__btn" aria-expanded="false" aria-controls="acc-mandat" type="button" data-fr-js-collapse-button="true">Qu'est-ce qu'un mandat ?</button>
+              <div id="acc-mandat" class="fr-collapse" data-fr-js-collapse="true">
+                <p class="fr-mb-0">Un mandat est un<span> contrat entre l'auto-école et le candidat </span>qui encadre la prestation de réservation de place d'examen. L'auto-école peut conclure la réservation d'une place d'examen pour le compte d'un candidat dès lors qu'il a été inscrit sous mandat par l'auto-école.</p>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="erpc-fiche erpc-fiche-candidat-details" data-testid="bloc-candidat">
+          <div class="erpc-fiche__header">
+            <span class="erpc-fiche__icone fr-icon-user-line" aria-hidden="true"></span>
+            <h2 class="erpc-fiche__titre" id="candidat-nom"></h2>
+          </div>
+          <div class="erpc-fiche__body">
+            <div class="fr-p-2w">
+              <p class="fr-text--sm fr-m-0">Numéro de dossier ou NEPH</p>
+              <p class="fr-text--bold fr-mb-2w" id="candidat-neph"></p>
+              <p class="fr-text--sm fr-m-0">Né(e) le</p>
+              <p class="fr-text--bold fr-mb-2w"><time id="candidat-naissance"></time></p>
+              <p class="fr-text--sm fr-m-0">Mon email de contact</p>
+              <a href="#" id="candidat-email"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<footer class="fr-footer" role="contentinfo" id="footer">
+  <div class="fr-container">
+    <div class="fr-footer__body">
+      <div class="fr-footer__brand fr-enlarge-link">
+        <a href="#"><p class="fr-logo erpc-logo">Ministère<br>de l'intérieur</p></a>
+      </div>
+      <div class="fr-footer__content">
+        <p class="fr-footer__content-desc">RdvPermis, la plateforme officielle pour réserver une place à l'examen du permis de conduire.</p>
+        <ul class="fr-footer__content-list">
+          <li class="fr-footer__content-item"><a class="fr-footer__content-link" target="_blank" href="https://info.gouv.fr/">info.gouv.fr</a></li>
+          <li class="fr-footer__content-item"><a class="fr-footer__content-link" target="_blank" href="https://service-public.fr/">service-public.fr</a></li>
+          <li class="fr-footer__content-item"><a class="fr-footer__content-link" target="_blank" href="https://legifrance.gouv.fr/">legifrance.gouv.fr</a></li>
+          <li class="fr-footer__content-item"><a class="fr-footer__content-link" target="_blank" href="https://data.gouv.fr/">data.gouv.fr</a></li>
+          <li class="fr-footer__content-item"><a class="fr-footer__content-link" target="_blank" href="https://securite-routiere.gouv.fr/">securite-routiere.gouv.fr</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fr-footer__bottom">
+      <ul class="fr-footer__bottom-list">
+        <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="#">Mentions légales</a></li>
+        <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="#">Contacts</a></li>
+        <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="#">Accessibilité : partiellement conforme</a></li>
+        <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="#">Données personnelles</a></li>
+        <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="#">Conditions générales d'utilisation</a></li>
+        <li class="fr-footer__bottom-item"><a class="fr-footer__bottom-link" href="#">Foire aux questions (FAQ)</a></li>
+      </ul>
+      <div class="fr-footer__bottom-copy"><p>Sauf mention explicite de propriété intellectuelle détenue par des tiers, les contenus de ce site sont proposés sous <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank">licence etalab-2.0</a></p></div>
+    </div>
+  </div>
+</footer>
+</div>
+
+
+<div id="modal-supprimer-mandat" class="custom-modal" role="dialog" aria-modal="true" aria-labelledby="modal-mandat-title" hidden="">
+  <div class="custom-modal__overlay" data-close-modal=""></div>
+  <div class="custom-modal__panel">
+    <div class="custom-modal__header">
+      <button type="button" class="custom-modal__close fr-link" data-close-modal="">Fermer <span aria-hidden="true">✕</span></button>
+    </div>
+    <h1 id="modal-mandat-title" class="custom-modal__title">Vous êtes sur le point de supprimer le mandat en cours avec votre auto-école.</h1>
+    <p class="custom-modal__text">Cela signifie que vous renoncez à être accompagné(e) à l'examen du permis de conduire par votre auto-école. Attention, si vous avez une place d'examen déjà réservée, votre examen sera automatiquement annulé et vous risquez de subir un délai de présentation.</p>
+    <p class="custom-modal__question"><strong>Confirmez-vous la suppression de votre mandat ?</strong></p>
+    <div class="custom-modal__actions">
+      <button type="button" class="fr-btn fr-btn--secondary" data-close-modal="">Non, je conserve mon mandat</button>
+      <button type="button" class="fr-btn" data-confirm-modal="">Oui, je supprime mon mandat</button>
+    </div>
+  </div>
+</div>
+
+<!-- 1) Données des candidats (à éditer) -->
+<!-- <script src="candidats.js"></script> -->
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+
+<script src="./Mon espace candidat _ RdvPermis_files/dsfr.module.min.js.download" type="module"></script>
+<script src="./Mon espace candidat _ RdvPermis_files/dsfr.nomodule.min.js.download" nomodule="" defer=""></script>
+
+<script src="./Mon espace candidat _ RdvPermis_files/dsfr.module.min.js.download" type="module"></script>
+<script src="./Mon espace candidat _ RdvPermis_files/dsfr.nomodule.min.js.download" nomodule="" defer=""></script>
+
+<script>
+
+  /* =========================================================================
+   BILAN PAR DÉFAUT — utilisé si l'examen n'a pas de bilan en base
+   ========================================================================= */
+const DEFAULT_BILAN = [
+  {
+    categorie: "Connaître et maîtriser son véhicule",
+    competences: [
+      { nom: "Savoir s'installer et assurer la sécurité à bord", points: 1, max: 2 },
+      { nom: "Effectuer des vérifications du véhicule",          points: 2, max: 3 },
+      { nom: "Connaître et utiliser les commandes",              points: 2, max: 3 }
+    ]
+  },
+  {
+    categorie: "Appréhender la route",
+    competences: [
+      { nom: "Prendre l'information",                 points: 2, max: 3 },
+      { nom: "Adapter son allure aux circonstances",  points: 3, max: 3 },
+      { nom: "Appliquer la réglementation",           points: 3, max: 3 }
+    ]
+  },
+  {
+    categorie: "Partager la route avec les autres usagers",
+    competences: [
+      { nom: "Communiquer avec les autres usagers",  points: 3, max: 3 },
+      { nom: "Partager la chaussée",                 points: 3, max: 3 },
+      { nom: "Maintenir les espaces de sécurité",    points: 2, max: 3 }
+    ]
+  },
+  {
+    categorie: "Autonomie, conscience du risque",
+    competences: [
+      { nom: "Analyse des situations",     points: 1, max: 1 },
+      { nom: "Adaptation aux situations",  points: 1, max: 1 },
+      { nom: "Conduite autonome",          points: 1, max: 1 }
+    ]
+  },
+  {
+    categorie: "Conduite respectueuse",
+    competences: [
+      { nom: "Conduite économique et respectueuse de l'environnement", points: 1, max: 1 },
+      { nom: "Courtoisie",                                             points: 1, max: 1 }
+    ]
+  }
+];
+/* =========================================================================
+   HELPERS
+   ========================================================================= */
+const $ = (sel) => document.querySelector(sel);
+
+function escapeHtml(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => (
+    { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]
+  ));
+}
+
+/* Accepte "2026-06-04" OU "04/06/2026" */
+function parseDate(input) {
+  if (!input) return null;
+  const s = String(input).split(' ')[0].split('T')[0];
+  let m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (m) return { y: m[1], mo: m[2], d: m[3] };
+  m = s.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+  if (m) return { y: m[3], mo: m[2], d: m[1] };
+  return null;
+}
+function formatDateFr(input) {
+  const p = parseDate(input);
+  if (!p) return String(input ?? '');
+  return `${p.d}/${p.mo}/${p.y}`;
+}
+function toIso(input) {
+  const p = parseDate(input);
+  return p ? `${p.y}-${p.mo}-${p.d}` : '';
+}
+
+/* =========================================================================
+   1) GARDE D'ACCÈS + RECHERCHE DU CANDIDAT PAR EMAIL
+   ========================================================================= */
+/* =========================================================================
+   TRANSFORMATION : ligne Supabase → forme attendue par le render
+   ========================================================================= */
+function transformCandidat(row) {
+  const examens = (row.examens || []).map(ex => {
+    const base = {
+      type:             ex.type,
+      date:             ex.date,
+      resultat:         ex.resultat,
+      centreExamen:     ex.centre_examen,
+      adresseCentre:    ex.adresse_centre,
+      examinateur:      ex.examinateur,
+      observations:     ex.observations,
+      certificat:       ex.certificat_url,
+      autoEcole:        row.auto_ecoles?.nom || ''
+    };
+    if ((ex.type || '').toLowerCase() === 'code') {
+      base.validite        = ex.validite;
+      base.dispensePratique = ex.dispense_pratique;
+    } else {
+      // Regrouper les compétences par catégorie
+      const map = new Map();
+      (ex.bilan_competences || [])
+        .slice()
+        .sort((a, b) => (a.ordre || 0) - (b.ordre || 0))
+        .forEach(b => {
+          if (!map.has(b.categorie)) map.set(b.categorie, []);
+          map.get(b.categorie).push({
+            nom:    b.competence,
+            points: b.points,
+            max:    b.points_max
+          });
+        });
+      base.bilan = Array.from(map.entries()).map(([categorie, competences]) => ({
+        categorie, competences
+      }));
+    }
+    return base;
+  });
+
+  // Pratique en premier, Code ensuite
+  examens.sort((a, b) => {
+    const pa = (a.type || '').toLowerCase() === 'pratique' ? 0 : 1;
+    const pb = (b.type || '').toLowerCase() === 'pratique' ? 0 : 1;
+    return pa - pb;
+  });
+
+  return {
+    email:            row.email,
+    nom:              row.nom,
+    neph:             row.neph,
+    dateNaissance:    row.date_naissance,
+    categoriePermis:  row.categorie_permis,
+    autoEcole: {
+      nom:   row.auto_ecoles?.nom   || '',
+      email: row.auto_ecoles?.email || ''
+    },
+    examens
+  };
+}
+
+/* =========================================================================
+   CHARGEMENT DES DONNÉES DEPUIS SUPABASE
+   ========================================================================= */
+function loadCandidatFromSession() {
+  const raw = sessionStorage.getItem('currentUser');
+  if (!raw) { redirectToLogin(); return null; }
+
+  let data;
+  try { data = JSON.parse(raw); }
+  catch (_) { redirectToLogin(); return null; }
+
+  if (!data || !data.email) { redirectToLogin(); return null; }
+  return data;
+}
+
+
+/* =========================================================================
+   INJECTION DANS LE DOM
+   ========================================================================= */
+function fillDom(CANDIDAT) {
+  document.querySelectorAll('[data-user-nom]').forEach(el => { el.textContent = CANDIDAT.nom || ''; });
+
+  const welcome = $('#welcome-title');
+  if (welcome) welcome.textContent = `Bienvenue ${CANDIDAT.nom || ''}`;
+
+  const cat = $('#categorie-permis');
+  if (cat) cat.textContent = CANDIDAT.categoriePermis || '';
+
+  const ecoleNom = $('#ecole-nom');
+  if (ecoleNom) ecoleNom.textContent = CANDIDAT.autoEcole?.nom || '';
+
+  const ecoleMail = $('#ecole-email');
+  if (ecoleMail) {
+    ecoleMail.textContent = CANDIDAT.autoEcole?.email || '';
+    ecoleMail.href = CANDIDAT.autoEcole?.email ? `mailto:${CANDIDAT.autoEcole.email}` : '#';
+  }
+
+  const candNom = $('#candidat-nom');
+  if (candNom) candNom.textContent = CANDIDAT.nom || '';
+
+  const neph = $('#candidat-neph');
+  if (neph) neph.textContent = CANDIDAT.neph || '';
+
+  const naiss = $('#candidat-naissance');
+  if (naiss) {
+    naiss.setAttribute('datetime', toIso(CANDIDAT.dateNaissance));
+    naiss.textContent = formatDateFr(CANDIDAT.dateNaissance);
+  }
+
+  const candMail = $('#candidat-email');
+  if (candMail) {
+    candMail.textContent = CANDIDAT.email || '';
+    candMail.href = CANDIDAT.email ? `mailto:${CANDIDAT.email}` : '#';
+  }
+
+  const examens = CANDIDAT.examens || [];
+  const pratique = examens.find(e => (e.type || '').toLowerCase() === 'pratique');
+  const code     = examens.find(e => (e.type || '').toLowerCase() === 'code');
+
+  fillExam(pratique, 0, 'pratique');
+  fillExam(code, 1, 'code');
+}
+
+/* =========================================================================
+   REMPLISSAGE D'UN ACCORDÉON D'EXAMEN
+   ========================================================================= */
+function fillExam(ex, i, kind) {
+  const section = document.getElementById(kind === 'pratique' ? 'accordion-pratique' : 'accordion-code');
+  if (!section) return;
+
+  if (!ex) { section.style.display = 'none'; return; }
+  section.style.display = '';
+
+  const typeEl = document.getElementById(`acc-${i}-type`);
+  if (typeEl) typeEl.textContent = ex.type || '';
+
+  const dateHeader = document.getElementById(`acc-${i}-date-header`);
+  if (dateHeader) {
+    dateHeader.setAttribute('datetime', toIso(ex.date));
+    dateHeader.textContent = formatDateFr(ex.date);
+  }
+
+  const badge = document.getElementById(`acc-${i}-badge`);
+  if (badge) {
+    badge.textContent = ex.resultat || '';
+    badge.classList.remove('fr-badge--success', 'fr-badge--error');
+    badge.classList.add((ex.resultat || '').toLowerCase().startsWith('fav')
+      ? 'fr-badge--success' : 'fr-badge--error');
+  }
+
+  const btn = document.getElementById(`acc-${i}-btn`);
+  if (btn) btn.setAttribute('aria-label',
+    `Examen ${ex.type || ''} du ${formatDateFr(ex.date)} avec résultat ${ex.resultat || ''}`);
+
+  if (kind === 'pratique') {
+    const d = document.getElementById('acc-0-date');
+    if (d) { d.setAttribute('datetime', toIso(ex.date)); d.textContent = formatDateFr(ex.date); }
+    const e = document.getElementById('acc-0-ecole');       if (e) e.textContent = ex.autoEcole || '';
+    const r = document.getElementById('acc-0-resultat');    if (r) r.textContent = ex.resultat || '';
+    const c = document.getElementById('acc-0-centre');      if (c) c.textContent = ex.centreExamen || '';
+    const a = document.getElementById('acc-0-adresse');     if (a) a.textContent = ex.adresseCentre || '';
+    const ex2 = document.getElementById('acc-0-examinateur'); if (ex2) ex2.textContent = ex.examinateur || '';
+
+    const cert = document.getElementById('acc-0-certificat');
+    const wrap = document.getElementById('acc-0-certificat-wrap');
+    if (cert && wrap) {
+      if (ex.certificat) { cert.href = ex.certificat; wrap.style.display = ''; }
+      else                { wrap.style.display = 'none'; }
+    }
+
+    // Bilan : priorité aux données de la base, sinon bilan par défaut
+    const bilan = (Array.isArray(ex.bilan) && ex.bilan.length > 0) ? ex.bilan : DEFAULT_BILAN;
+
+    for (let k = 0; k < 5; k++) {
+      const tableWrap = document.querySelector(`[data-bilan-cat="${k}"]`);
+      const cap       = document.getElementById(`bilan-${k}-caption`);
+      const tbody     = document.getElementById(`bilan-${k}-tbody`);
+
+      const cat = bilan[k];
+      if (!cat) {
+        if (tableWrap) tableWrap.style.display = 'none';
+        continue;
+      }
+
+      if (tableWrap) tableWrap.style.display = '';
+      if (cap) cap.textContent = cat.categorie || '';
+
+      if (tbody) {
+        tbody.innerHTML = (cat.competences || []).map(comp => {
+          const pts = Number(comp.points) || 0;
+          const max = Number(comp.max) || 0;
+          const label = `${pts} point${pts > 1 ? 's' : ''}`;
+          return `
+            <tr>
+              <th scope="row">${escapeHtml(comp.nom)}</th>
+              <td><b class="points-bilan">${escapeHtml(label)}</b> sur ${escapeHtml(max)}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    const resBilan = document.getElementById('acc-0-resultat-bilan');
+    if (resBilan) resBilan.textContent = ex.resultat || '';
+
+    const obsWrap = document.getElementById('acc-0-observations-wrap');
+    const obs = document.getElementById('acc-0-observations');
+    if (ex.observations) {
+      if (obsWrap) obsWrap.style.display = '';
+      if (obs) obs.textContent = ex.observations;
+    } else if (obsWrap) {
+      obsWrap.style.display = 'none';
+    }
+  }
+
+  if (kind === 'code') {
+    const d = document.getElementById('acc-1-date');
+    if (d) { d.setAttribute('datetime', toIso(ex.date)); d.textContent = formatDateFr(ex.date); }
+    const v = document.getElementById('acc-1-validite');
+    if (v) v.textContent = ex.validite ? `Valable jusqu'au ${formatDateFr(ex.validite)}` : '';
+    const e = document.getElementById('acc-1-ecole');       if (e) e.textContent = ex.autoEcole || '';
+    const r = document.getElementById('acc-1-resultat');    if (r) r.textContent = ex.resultat || '';
+    const dp = document.getElementById('acc-1-dispense');    if (dp) dp.textContent = ex.dispensePratique || 'Non';
+  }
+}
+
+/* =========================================================================
+   INITIALISATION
+   ========================================================================= */
+(function init() {
+  const candidat = loadCandidatFromSession();
+  if (!candidat) return;
+  fillDom(candidat);
+})();
+
+/* =========================================================================
+   3) INTERACTIONS (accordéons, modale, burger, logout)
+   ========================================================================= */
+document.addEventListener('click', function (e) {
+  const btn = e.target.closest('.fr-accordion__btn');
+  if (btn) {
+    e.preventDefault();
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    const id = btn.getAttribute('aria-controls');
+    if (id) {
+      const c = document.getElementById(id);
+      if (c) c.classList.toggle('fr-collapse--expanded', !isOpen);
+    }
+    return;
+  }
+    if (e.target.closest('#acc-0-certificat')) {
+    e.preventDefault();
+    if (typeof CANDIDAT !== 'undefined' && CANDIDAT && CANDIDAT.examens?.[0]) {
+      telechargerCertificat(CANDIDAT.examens[0], CANDIDAT);
+    }
+    return;
+  }
+  if (e.target.closest('#ea-revocation-mandat-modal-bouton-demarrer')) {
+    e.preventDefault();
+    const m = document.getElementById('modal-supprimer-mandat');
+    if (m) m.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    return;
+  }
+  if (e.target.closest('[data-close-modal]')) {
+    e.preventDefault();
+    const m = document.getElementById('modal-supprimer-mandat');
+    if (m) m.setAttribute('hidden', '');
+    document.body.style.overflow = '';
+    return;
+  }
+  if (e.target.closest('[data-confirm-modal]')) {
+    e.preventDefault();
+    alert('Mandat supprimé (mock — pas de backend dans la reproduction).');
+    const m = document.getElementById('modal-supprimer-mandat');
+    if (m) m.setAttribute('hidden', '');
+    document.body.style.overflow = '';
+  }
+}, true);
+
+function doLogout() {
+  sessionStorage.removeItem('currentUser');
+  sessionStorage.removeItem('currentUserEmail');
+  redirectToLogin();
+}
+['logout-btn', 'logout-btn-mobile'].forEach(id => {
+  const b = document.getElementById(id);
+  if (b) b.addEventListener('click', doLogout);
+});
+
+function setMenuOpen(open) {
+  const trigger = document.getElementById('button-menu-mobile');
+  const modal = document.getElementById('modal-menu-mobile');
+  if (!trigger || !modal) return;
+  trigger.setAttribute('aria-expanded', String(open));
+  modal.classList.toggle('erpc-menu-open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+const menuTrigger = document.getElementById('button-menu-mobile');
+if (menuTrigger) {
+  menuTrigger.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    const isOpen = menuTrigger.getAttribute('aria-expanded') === 'true';
+    setMenuOpen(!isOpen);
+  });
+}
+const closeBtn = document.getElementById('close-menu-mobile');
+if (closeBtn) closeBtn.addEventListener('click', e => { e.preventDefault(); setMenuOpen(false); });
+
+const menuModal = document.getElementById('modal-menu-mobile');
+if (menuModal) {
+  menuModal.addEventListener('click', e => { if (e.target === menuModal) setMenuOpen(false); });
+}
+
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Escape') return;
+  const m = document.getElementById('modal-supprimer-mandat');
+  if (m && !m.hasAttribute('hidden')) {
+    m.setAttribute('hidden', '');
+    document.body.style.overflow = '';
+    return;
+  }
+  const menu = document.getElementById('modal-menu-mobile');
+  if (menu && menu.classList.contains('erpc-menu-open')) setMenuOpen(false);
+});
+/* =========================================================================
+   GÉNÉRATION DU CERTIFICAT PDF
+   ========================================================================= */
+function telechargerCertificat(ex, user) {
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    alert("La bibliothèque PDF n'est pas chargée. Vérifiez votre connexion.");
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+  // ---- En-tête ----
+  doc.setFillColor(0, 0, 145);                     // bleu Marianne
+  doc.rect(0, 0, 210, 25, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(16);
+  doc.text("RÉPUBLIQUE FRANÇAISE", 105, 12, { align: 'center' });
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'normal');
+  doc.text("Sécurité routière — Vivre, ensemble", 105, 19, { align: 'center' });
+
+  // ---- Titre ----
+  doc.setTextColor(0, 0, 0);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(18);
+  doc.text("Attestation de réussite à l'examen", 105, 45, { align: 'center' });
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'normal');
+  doc.text("Épreuve pratique du permis de conduire", 105, 53, { align: 'center' });
+
+  // ---- Cadre ----
+  doc.setDrawColor(200, 200, 200);
+  doc.setLineWidth(0.3);
+  doc.rect(20, 65, 170, 130);
+
+  // ---- Informations candidat ----
+  let y = 78;
+  const addLine = (label, value) => {
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text(label, 28, y);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.text(String(value || '—'), 78, y);
+    y += 9;
+  };
+
+  addLine("Nom et prénom :", user.nom);
+  addLine("Date de naissance :", formatDateFr(user.dateNaissance));
+  addLine("Numéro NEPH :", user.neph);
+  addLine("Catégorie de permis :", user.categoriePermis);
+  addLine("Auto-école :", user.autoEcole?.nom || ex.autoEcole || '');
+  addLine("Date de l'examen :", formatDateFr(ex.date));
+  addLine("Centre d'examen :", ex.centreExamen || ex.centre || '');
+  addLine("Adresse du centre :", ex.adresseCentre || '');
+  addLine("Examinateur :", ex.examinateur || '');
+  addLine("Résultat :", ex.resultat || '');
+
+  // ---- Bandeau résultat ----
+  y += 5;
+  const favorable = (ex.resultat || '').toLowerCase().startsWith('fav');
+  doc.setFillColor(favorable ? 0 : 180, favorable ? 144 : 0, 0);
+  doc.rect(28, y, 154, 12, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.text(ex.resultat || '', 105, y + 8, { align: 'center' });
+
+  // ---- Pied de page ----
+  doc.setTextColor(120, 120, 120);
+  doc.setFont('helvetica', 'italic');
+  doc.setFontSize(9);
+  doc.text(
+    "Document généré le " + new Date().toLocaleDateString('fr-FR') +
+    " — Reproduction à usage pédagogique.",
+    105, 285, { align: 'center' }
+  );
+
+  // ---- Téléchargement ----
+  const safeName = (user.nom || 'candidat').replace(/\s+/g, '_');
+  doc.save(`certificat_${safeName}_${(ex.date || '').replace(/\//g, '-')}.pdf`);
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body></html>

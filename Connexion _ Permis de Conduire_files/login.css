@@ -1,0 +1,87 @@
+/* Le DSFR officiel gère 100% du layout, des polices Marianne, des couleurs et
+   des composants (header, formulaire, footer, boutons). Ici on ajoute UNIQUEMENT :
+   - la popup cookies (qui sur le vrai site vient d'un 3rd party tagcommander)
+   - un peu d'espacement pour le widget Cloudflare Turnstile
+*/
+
+#cookies-popup {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  width: 380px;
+  max-width: calc(100vw - 3rem);
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 1.25rem;
+  z-index: 1000;
+  border: 1px solid #e5e5e5;
+}
+#cookies-popup h2 { margin-top: 0; }
+#cookies-popup .fr-btns-group { gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+
+/* Mock captcha : cadre noir avec spinner puis coche verte + "Success!" */
+.mock-captcha {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #2b2b2b;
+  color: #fff;
+  padding: 0.85rem 1.25rem;
+  margin: 1rem 0 1.5rem;
+  min-width: 18rem;
+  font-size: 0.95rem;
+}
+.mock-captcha__spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(255,255,255,0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: mock-spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+.mock-captcha__check {
+  width: 26px;
+  height: 26px;
+  background: #43a047;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.mock-captcha__label { font-weight: 500; }
+@keyframes mock-spin { to { transform: rotate(360deg); } }
+
+/* DSFR's .fr-footer__logo class is designed for <img>, not <svg>. Sites using
+   inline SVG add their own custom class to set width/height. We replicate that
+   behavior here so the partner SVGs (NextGenEU + France Relance) have a size.
+   No custom border on the link — DSFR already provides the partner frame. */
+.fr-footer__partners-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.5rem 1rem !important;       /* compact : 8px vertical, 16px horizontal */
+  background: #fff !important;
+}
+/* NextGenEU : cadre serré autour du logo (~128×120) */
+.fr-footer__partners-main:first-of-type .fr-footer__partners-link {
+  width: 8rem !important;
+  height: 7.5rem !important;
+}
+/* France Relance : cadre serré (~120×120) */
+.fr-footer__partners-main:last-of-type  .fr-footer__partners-link {
+  width: 7.5rem !important;
+  height: 7.5rem !important;
+}
+
+/* Logo dimensionné pour laisser ~40-50px de padding horizontal */
+.fr-footer__logo { max-width: 100%; max-height: 100%; width: auto; height: auto; }
+#logoNextGenerationEu { width: 6rem;   height: auto; max-height: 5rem; }
+#logoFranceRelance    { width: 5.5rem; height: 5.5rem; }
+
+.fr-footer__brand .fr-logo { font-size: 1.05rem; }
+
+@media (max-width: 720px) {
+  #cookies-popup { left: 0.5rem; right: 0.5rem; bottom: 0.5rem; width: auto; }
+}

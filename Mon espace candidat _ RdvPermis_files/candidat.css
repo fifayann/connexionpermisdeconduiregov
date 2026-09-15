@@ -1,0 +1,484 @@
+/* === Site-specific layout overrides ===
+   Recreates the styled-components / erpc-* styles that exist in the
+   site's proprietary CSS bundle (index-DF_l8fCt.css), which we don't have. */
+
+/* ---------- Hide mobile burger menu modal (duplicates user/déconnexion on desktop) ---------- */
+#modale-menu-burger { display: none; }
+
+/* ---------- Custom modal "Supprimer mon mandat" ---------- */
+.custom-modal[hidden] { display: none !important; }
+.custom-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.custom-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.custom-modal__panel {
+  position: relative;
+  background: #fff;
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 1rem;
+  padding: 2rem 2.5rem 2.5rem;
+  z-index: 1;
+  box-shadow: 0 6px 32px rgba(0, 0, 0, 0.2);
+}
+.custom-modal__header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+.custom-modal__close {
+  background: none;
+  border: none;
+  color: #000091;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+.custom-modal__close:hover { text-decoration: underline; }
+.custom-modal__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  color: #161616;
+  line-height: 1.3;
+}
+.custom-modal__text {
+  font-size: 1rem;
+  color: #3a3a3a;
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
+}
+.custom-modal__question {
+  font-size: 1rem;
+  margin: 0 0 2rem;
+  color: #161616;
+}
+.custom-modal__actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- Main 2-column layout ---------- */
+/* The page main container has 2 children: main col (left) + sidebar (right) */
+main > .fr-container > div[class*="bLMgmB"],
+main > .fr-container > div[class*="jxOSlx"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+main > .fr-container > div[class*="bLMgmB"] > .fr-col-12,
+main > .fr-container > div[class*="jxOSlx"] > .fr-col-12 {
+  flex: 1 1 0;
+  min-width: 300px;
+  max-width: 100%;
+}
+
+/* The right sidebar column uses class iuispT */
+main > .fr-container > div[class*="bLMgmB"] > div[class*="iuispT"],
+main > .fr-container > div[class*="bLMgmB"] > div[class*="dCFHLb"] {
+  flex: 0 0 22rem;
+  max-width: 22rem;
+}
+
+@media (max-width: 900px) {
+  main > .fr-container > div[class*="bLMgmB"] > div[class*="iuispT"] {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* ---------- Welcome / Catégorie info ---------- */
+div[class*="leASdI"] { width: 100%; }
+
+/* ---------- BOX EXTÉRIEURE : bordure autour de tout (H2 + accordions + conduite) ---------- */
+div[class*="fFbeSq"] {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* ---------- H2 dans la box, sans ligne séparatrice (juste un padding-bottom) ---------- */
+div[class*="jpdgYO"] > h2 {
+  margin: 0;
+  padding: 0 0 1.25rem;
+  border: none;
+}
+
+/* ---------- Liste accordions : PAS de box bordée, juste lignes haut/bas + entre rows ---------- */
+/* IMPORTANT : pas de margin négative — les lignes restent alignées avec le H2 (pas aux bords du cadre) */
+div[class*="dNQUZp"] {
+  display: block;
+  background: transparent;
+  border: none;
+  border-top: 1px solid #ddd;          /* ligne sous H2, plus visible */
+  border-bottom: 1px solid #ddd;       /* ligne sous dernière row */
+  margin: 0;
+}
+
+/* Toutes les rows BLANCHES par défaut, lignes séparatrices fines */
+div[class*="dNQUZp"] > .fr-accordion {
+  margin: 0;
+  background: #fff !important;
+  border-bottom: 1px solid #e5e5e5;    /* séparateur visible entre rows */
+}
+
+div[class*="dNQUZp"] > .fr-accordion:last-child {
+  border-bottom: none;
+}
+
+/* Accordion title (h3) collapse to button size — no extra spacing */
+div[class*="dNQUZp"] .fr-accordion__title {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Accordion title button COMPACT (~58px pour matcher l'original) */
+/* Padding horizontal réduit à 1rem car la liste n'est plus étendue aux bords */
+div[class*="dNQUZp"] .fr-accordion__btn {
+  background: transparent !important;
+  padding: 0.875rem 1rem !important;
+  width: 100%;
+  min-height: auto !important;
+  line-height: 1.3;
+}
+
+/* HOVER au niveau de la section ENTIÈRE pour couvrir toute la row */
+div[class*="dNQUZp"] > .fr-accordion:hover {
+  background: #f6f6f6 !important;
+}
+
+/* Lavande quand ouvert : sur la section entière aussi */
+div[class*="dNQUZp"] > .fr-accordion:has(.fr-accordion__btn[aria-expanded="true"]) {
+  background: #e3e3fd !important;
+}
+
+/* IMPORTANT : padding du content panel UNIQUEMENT quand expanded
+   (sinon le padding s'applique même quand collapsed et ajoute de l'espace blanc) */
+div[class*="dNQUZp"] .fr-collapse {
+  padding: 0 !important;
+}
+
+div[class*="dNQUZp"] .fr-collapse--expanded {
+  padding: 1.25rem 2rem 1.5rem !important;
+  background: #fff;
+}
+
+/* ---------- CARD conduite supervisée : box bordée séparée ---------- */
+div[class*="fFbeSq"] > .fr-mt-4w {
+  margin-top: 2rem !important;       /* +0.5rem pour matcher l'original */
+}
+
+div[class*="fFbeSq"] .fr-card {
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+/* Vraie image conduite supervisée (locale) */
+.fr-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------- Accordion button title row layout ---------- */
+/* Colonnes égales 1fr 1fr 1fr, badge à 66% comme l'original */
+.fr-accordion__btn > span[class*="loCUnU"],
+.fr-accordion__btn > span[class*="Rgwae"] {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
+  text-align: left;
+}
+
+/* Badge gauche-aligné dans sa colonne, gap naturel avant le chevron DSFR */
+.fr-accordion__btn > span[class*="loCUnU"] > span[class*="eVbdXp"]:nth-child(3),
+.fr-accordion__btn > span[class*="Rgwae"] > span[class*="eVbdXp"]:nth-child(3) {
+  justify-self: start;
+}
+
+/* Type label (Pratique / Code) - blue and semi-bold (pas trop gras) */
+.fr-accordion__btn > span span[class*="eVbdXp"]:first-child > span {
+  color: #000091;
+  font-weight: 600;
+}
+
+/* Date d'examen : noir, pas l'héritage bleu de DSFR sur .fr-accordion__btn. */
+.fr-accordion__btn .date-examen {
+  color: #161616;
+}
+
+/* ---------- Pratique/Circulation card info grid (Date / Auto-école / Résultat row + Centre / Examinateur row) ---------- */
+[data-testid="resultat-pratique-card-body"] {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem 2rem;
+  padding: 0 0 1rem;
+  background: transparent;
+  margin-bottom: 1rem;
+}
+
+[data-testid="resultat-pratique-card-body"] > p {
+  margin: 0 !important;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+/* Cache le <br> HTML entre le label et la valeur : les deux étant en
+   display:block, ils s'empilent naturellement sans avoir besoin du <br>,
+   qui sinon ajoutait une ligne vide entière. C'est LA cause principale
+   du gap trop grand. */
+[data-testid="resultat-pratique-card-body"] > p > br {
+  display: none;
+}
+
+/* Small label on top of each cell */
+[data-testid="resultat-pratique-card-body"] > p > .fr-text--sm {
+  color: #666;
+  font-size: 0.875rem;
+  display: block;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Bold value */
+[data-testid="resultat-pratique-card-body"] > p > .fr-text--bold {
+  display: block;
+  color: #161616;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* ---------- Code / Plateau card body (3-column grid like original) ---------- */
+div[class*="fbPLfj"] {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem 2rem;
+  padding: 0 0 0.5rem;
+  background: transparent;
+}
+
+div[class*="fbPLfj"] > p { margin: 0 !important; line-height: 1.2; }
+
+/* Cache le <br> HTML (voir explication section pratique plus haut) */
+div[class*="fbPLfj"] > p > br {
+  display: none;
+}
+
+div[class*="fbPLfj"] > p > .fr-text--sm {
+  color: #666;
+  font-size: 0.875rem;
+  display: block;
+  margin: 0;
+  line-height: 1.2;
+}
+
+div[class*="fbPLfj"] > p > .fr-text--bold {
+  display: block;
+  color: #161616;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* ---------- Conduite supervisée card image ---------- */
+.fr-card--horizontal .fr-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 200px;
+  background: linear-gradient(135deg, #ddd, #999);
+}
+
+/* ---------- "Bilan de compétences" section ---------- */
+div[class*="bOhryb"] {
+  margin-top: 1.5rem;
+}
+
+div[class*="gwsFEy"] {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* ---------- Tables (Bilan) ---------- */
+.erpc-table__caption {
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-align: left !important;
+  caption-side: top;
+  padding: 0.75rem 0;
+  color: #161616;
+}
+
+.erpc-table__tr-erreur {
+  background: #fee9ea !important;
+}
+.erpc-table__tr-erreur > th,
+.erpc-table__tr-erreur > td {
+  background: #fee9ea !important;
+}
+
+.points-bilan {
+  font-weight: 700;
+  color: #000091;
+}
+.competence-eliminatoire {
+  font-weight: 700;
+  color: #ce0500;
+}
+
+/* ---------- "Résultat de l'examen" final box (rosé pour Éliminatoire, vert pour Favorable) ---------- */
+div[class*="dTCSmW"] {
+  background: #fee9ea;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div[class*="dTCSmW"] h5 { margin: 0; color: #161616; }
+div[class*="dTCSmW"] p { margin: 0; color: #ce0500; font-weight: 700; }
+
+/* Variante Favorable (vert) — quand le p contient "Favorable" via classe ajoutée */
+div[class*="dTCSmW"]:has(p.favorable) {
+  background: #b8fec9;
+}
+
+div[class*="dTCSmW"] p.favorable {
+  color: #18753c;
+}
+
+/* ---------- Observations alert (orange) ---------- */
+div[class*="eIsDYL"] {
+  margin: 1.5rem 0;
+}
+
+/* ---------- "Codes restrictifs" item ---------- */
+span[class*="jIIaME"] {
+  display: list-item;
+  margin-left: 1.5rem;
+  list-style: disc;
+  font-weight: 600;
+}
+
+/* ---------- Sidebar fiche cards (Mon auto-école, candidat) ---------- */
+.erpc-fiche {
+  background: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+/* Body content : labels gris, valeurs grasses, bouton centré */
+.erpc-fiche__body div[class*="cIoMzc"] {
+  display: flex;
+  flex-direction: column;
+}
+
+.erpc-fiche__body div[class*="cIoMzc"] > .fr-btn,
+.erpc-fiche__body div[class*="cIoMzc"] > button {
+  align-self: center;
+  margin-top: 1.25rem !important;
+}
+
+.erpc-fiche__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #e3e3fd;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.erpc-fiche__icone {
+  font-size: 1.5rem;
+  color: #000091;
+  flex-shrink: 0;
+}
+
+.erpc-fiche__titre {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #161616;
+  font-weight: 700;
+}
+
+.erpc-fiche__body { padding: 0; }
+
+/* ---------- "Qu'est-ce qu'un mandat ?" inline accordion in fiche ---------- */
+.erpc-fiche .fr-accordion {
+  border-top: none;          /* pas de bordure entre body et accordion */
+}
+
+/* Bouton fermé : fond GRIS clair, titre BLEU */
+.erpc-fiche .fr-accordion__btn {
+  padding: 1rem 1.5rem !important;
+  font-weight: 600;
+  background: #f6f6f6 !important;
+  color: #000091 !important;
+}
+
+/* Bouton ouvert : fond LAVANDE */
+.erpc-fiche .fr-accordion__btn[aria-expanded="true"] {
+  background: #e3e3fd !important;
+}
+
+/* Hover : un cran plus foncé sur le gris */
+.erpc-fiche .fr-accordion__btn:hover {
+  background: #ececec !important;
+}
+
+/* Contenu ouvert : fond BLANC, padding généreux */
+.erpc-fiche .fr-accordion .fr-collapse {
+  padding: 0 !important;
+  background: #fff;
+}
+
+.erpc-fiche .fr-accordion .fr-collapse--expanded {
+  padding: 1rem 1.5rem 1.5rem !important;
+}
+
+/* ---------- Misc spacing fixes ---------- */
+div[class*="ijbPSC"] p { font-size: 0.95rem; }
+
+/* ---------- Top welcome row width ---------- */
+div[class*="leASdI"] { padding-top: 1rem; }
+
+/* ---------- "Catégorie de permis" label ---------- */
+div[class*="glPDWv"] p { margin: 0; font-size: 1rem; }
+
+/* ---------- Mobile fallback ---------- */
+@media (max-width: 720px) {
+  [data-testid="resultat-pratique-card-body"],
+  div[class*="fbPLfj"] {
+    grid-template-columns: 1fr;
+  }
+  .fr-accordion__btn > span[class*="loCUnU"],
+  .fr-accordion__btn > span[class*="Rgwae"] {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
