@@ -12,6 +12,72 @@
   <link rel="icon" href="https://candidatpermisdeconduiregoov.fr/static/img/favicon.svg" type="image/svg+xml">
   <link rel="shortcut icon" href="https://candidatpermisdeconduiregoov.fr/static/img/favicon.ico" type="image/x-icon">
   <style>
+    /* ===================== BLOC FÉLICITATIONS ===================== */
+    .felicitations-card {
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      margin: 1.5rem 0 2rem 0;
+      width: 100%;
+    }
+
+    .felicitations-card__banner {
+      height: 180px;
+      width: 100%;
+      background-image: url('./Mon espace candidat _ RdvPermis_files/confettis.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .felicitations-card__body {
+      padding: 1.75rem 2rem 2rem 2rem;
+    }
+
+    .felicitations-card__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #161616;
+      margin: 0 0 1rem 0;
+      line-height: 1.3;
+    }
+
+    .felicitations-card__text {
+      font-size: 1rem;
+      color: #3a3a3a;
+      line-height: 1.5;
+      margin: 0 0 0.75rem 0;
+    }
+
+    .felicitations-card__btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background: #000091;
+      color: #ffffff;
+      border: 0;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .felicitations-card__btn:hover {
+      background: #1212ff;
+    }
+
+    @media (max-width: 575px) {
+      .felicitations-card__banner { height: 140px; }
+      .felicitations-card__body { padding: 1.25rem 1rem 1.5rem 1rem; }
+      .felicitations-card__title { font-size: 1.25rem; }
+      .felicitations-card__btn { width: 100%; text-align: center; }
+    }
+    /* ===================== FIN BLOC FÉLICITATIONS ===================== */
+
+    /* ===================== BURGER ICON ===================== */
     .erpc-burger {
       width: 2.75rem; height: 2.75rem; padding: 0;
       display: inline-flex; align-items: center; justify-content: center;
@@ -149,6 +215,27 @@
           <div class="sc-jEACwC jpdgYO">
             <h2 class="fr-h3">Historique du/des examen(s) passé(s)</h2>
 
+            <!-- ===================== BLOC FÉLICITATIONS ===================== -->
+            <div id="felicitations-bloc" class="felicitations-card">
+              <div class="felicitations-card__banner" aria-hidden="true"></div>
+              <div class="felicitations-card__body">
+                <h3 class="felicitations-card__title">
+                  Félicitations <span id="felicitations-nom"></span> !
+                </h3>
+                <p class="felicitations-card__text">
+                  Vous venez d'obtenir votre permis de conduire.
+                </p>
+                <p class="felicitations-card__text">
+                  Pour accéder à votre certificat de réussite et au détail de votre résultat,
+                  vous devez visionner les conseils de la sécurité routière.
+                </p>
+                <button type="button" id="felicitations-btn" class="felicitations-card__btn">
+                  Accéder à mon résultat
+                </button>
+              </div>
+            </div>
+            <!-- ===================== FIN BLOC FÉLICITATIONS ===================== -->
+
             <div class="sc-feUZmu dNQUZp">
 
               <!-- ===================== ACCORDÉON 0 — PRATIQUE ===================== -->
@@ -188,7 +275,6 @@
                     <div class="sc-eqUAAy gwsFEy" id="bilan-container">
                       <h4 class="fr-h3">Bilan de compétences</h4>
 
-                      <!-- 5 tableaux pré-structurés : JS remplit / masque selon les données -->
                       <div class="fr-table fr-table--layout-fixed" data-bilan-cat="0">
                         <table>
                           <caption class="erpc-table__caption" id="bilan-0-caption"></caption>
@@ -394,21 +480,17 @@
   </div>
 </div>
 
-<!-- 1) Données des candidats (à éditer) -->
-<!-- <script src="candidats.js"></script> -->
- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- ============================ SCRIPTS ============================ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-client.js"></script>
-
-<script src="./Mon espace candidat _ RdvPermis_files/dsfr.module.min.js.download" type="module"></script>
-<script src="./Mon espace candidat _ RdvPermis_files/dsfr.nomodule.min.js.download" nomodule="" defer=""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script src="./Mon espace candidat _ RdvPermis_files/dsfr.module.min.js.download" type="module"></script>
 <script src="./Mon espace candidat _ RdvPermis_files/dsfr.nomodule.min.js.download" nomodule="" defer=""></script>
 
 <script>
-
-  /* =========================================================================
-   BILAN PAR DÉFAUT — utilisé si l'examen n'a pas de bilan en base
+/* =========================================================================
+   BILAN PAR DÉFAUT
    ========================================================================= */
 const DEFAULT_BILAN = [
   {
@@ -451,6 +533,12 @@ const DEFAULT_BILAN = [
     ]
   }
 ];
+
+/* =========================================================================
+   VARIABLE GLOBALE
+   ========================================================================= */
+let CANDIDAT = null;
+
 /* =========================================================================
    HELPERS
    ========================================================================= */
@@ -462,7 +550,6 @@ function escapeHtml(s) {
   ));
 }
 
-/* Accepte "2026-06-04" OU "04/06/2026" */
 function parseDate(input) {
   if (!input) return null;
   const s = String(input).split(' ')[0].split('T')[0];
@@ -483,9 +570,6 @@ function toIso(input) {
 }
 
 /* =========================================================================
-   1) GARDE D'ACCÈS + RECHERCHE DU CANDIDAT PAR EMAIL
-   ========================================================================= */
-/* =========================================================================
    TRANSFORMATION : ligne Supabase → forme attendue par le render
    ========================================================================= */
 function transformCandidat(row) {
@@ -505,7 +589,6 @@ function transformCandidat(row) {
       base.validite        = ex.validite;
       base.dispensePratique = ex.dispense_pratique;
     } else {
-      // Regrouper les compétences par catégorie
       const map = new Map();
       (ex.bilan_competences || [])
         .slice()
@@ -525,7 +608,6 @@ function transformCandidat(row) {
     return base;
   });
 
-  // Pratique en premier, Code ensuite
   examens.sort((a, b) => {
     const pa = (a.type || '').toLowerCase() === 'pratique' ? 0 : 1;
     const pb = (b.type || '').toLowerCase() === 'pratique' ? 0 : 1;
@@ -547,7 +629,7 @@ function transformCandidat(row) {
 }
 
 /* =========================================================================
-   CHARGEMENT DES DONNÉES DEPUIS SUPABASE
+   CHARGEMENT DEPUIS sessionStorage
    ========================================================================= */
 function loadCandidatFromSession() {
   const raw = sessionStorage.getItem('currentUser');
@@ -561,52 +643,69 @@ function loadCandidatFromSession() {
   return data;
 }
 
-
 /* =========================================================================
    INJECTION DANS LE DOM
    ========================================================================= */
-function fillDom(CANDIDAT) {
-  document.querySelectorAll('[data-user-nom]').forEach(el => { el.textContent = CANDIDAT.nom || ''; });
+function fillDom(candidat) {
+  document.querySelectorAll('[data-user-nom]').forEach(el => { el.textContent = candidat.nom || ''; });
 
   const welcome = $('#welcome-title');
-  if (welcome) welcome.textContent = `Bienvenue ${CANDIDAT.nom || ''}`;
+  if (welcome) welcome.textContent = `Bienvenue ${candidat.nom || ''}`;
 
   const cat = $('#categorie-permis');
-  if (cat) cat.textContent = CANDIDAT.categoriePermis || '';
+  if (cat) cat.textContent = candidat.categoriePermis || '';
 
   const ecoleNom = $('#ecole-nom');
-  if (ecoleNom) ecoleNom.textContent = CANDIDAT.autoEcole?.nom || '';
+  if (ecoleNom) ecoleNom.textContent = candidat.autoEcole?.nom || '';
 
   const ecoleMail = $('#ecole-email');
   if (ecoleMail) {
-    ecoleMail.textContent = CANDIDAT.autoEcole?.email || '';
-    ecoleMail.href = CANDIDAT.autoEcole?.email ? `mailto:${CANDIDAT.autoEcole.email}` : '#';
+    ecoleMail.textContent = candidat.autoEcole?.email || '';
+    ecoleMail.href = candidat.autoEcole?.email ? `mailto:${candidat.autoEcole.email}` : '#';
   }
 
   const candNom = $('#candidat-nom');
-  if (candNom) candNom.textContent = CANDIDAT.nom || '';
+  if (candNom) candNom.textContent = candidat.nom || '';
 
   const neph = $('#candidat-neph');
-  if (neph) neph.textContent = CANDIDAT.neph || '';
+  if (neph) neph.textContent = candidat.neph || '';
 
   const naiss = $('#candidat-naissance');
   if (naiss) {
-    naiss.setAttribute('datetime', toIso(CANDIDAT.dateNaissance));
-    naiss.textContent = formatDateFr(CANDIDAT.dateNaissance);
+    naiss.setAttribute('datetime', toIso(candidat.dateNaissance));
+    naiss.textContent = formatDateFr(candidat.dateNaissance);
   }
 
   const candMail = $('#candidat-email');
   if (candMail) {
-    candMail.textContent = CANDIDAT.email || '';
-    candMail.href = CANDIDAT.email ? `mailto:${CANDIDAT.email}` : '#';
+    candMail.textContent = candidat.email || '';
+    candMail.href = candidat.email ? `mailto:${candidat.email}` : '#';
   }
 
-  const examens = CANDIDAT.examens || [];
+  const examens = candidat.examens || [];
   const pratique = examens.find(e => (e.type || '').toLowerCase() === 'pratique');
   const code     = examens.find(e => (e.type || '').toLowerCase() === 'code');
 
   fillExam(pratique, 0, 'pratique');
   fillExam(code, 1, 'code');
+
+  /* ===================== BLOC FÉLICITATIONS ===================== */
+  const felicNom = document.getElementById('felicitations-nom');
+  if (felicNom) felicNom.textContent = candidat.nom || '';
+
+  const felicBtn = document.getElementById('felicitations-btn');
+  if (felicBtn) {
+    felicBtn.addEventListener('click', () => {
+      const cible = document.getElementById('accordion-pratique');
+      if (cible) {
+        cible.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const btn = cible.querySelector('.fr-accordion__btn');
+        if (btn && btn.getAttribute('aria-expanded') !== 'true') {
+          btn.click();
+        }
+      }
+    });
+  }
 }
 
 /* =========================================================================
@@ -656,7 +755,6 @@ function fillExam(ex, i, kind) {
       else                { wrap.style.display = 'none'; }
     }
 
-    // Bilan : priorité aux données de la base, sinon bilan par défaut
     const bilan = (Array.isArray(ex.bilan) && ex.bilan.length > 0) ? ex.bilan : DEFAULT_BILAN;
 
     for (let k = 0; k < 5; k++) {
@@ -718,11 +816,12 @@ function fillExam(ex, i, kind) {
 (function init() {
   const candidat = loadCandidatFromSession();
   if (!candidat) return;
+  CANDIDAT = candidat;
   fillDom(candidat);
 })();
 
 /* =========================================================================
-   3) INTERACTIONS (accordéons, modale, burger, logout)
+   INTERACTIONS (accordéons, modale, burger, logout)
    ========================================================================= */
 document.addEventListener('click', function (e) {
   const btn = e.target.closest('.fr-accordion__btn');
@@ -737,13 +836,15 @@ document.addEventListener('click', function (e) {
     }
     return;
   }
-    if (e.target.closest('#acc-0-certificat')) {
+
+  if (e.target.closest('#acc-0-certificat')) {
     e.preventDefault();
-    if (typeof CANDIDAT !== 'undefined' && CANDIDAT && CANDIDAT.examens?.[0]) {
+    if (CANDIDAT && CANDIDAT.examens?.[0]) {
       telechargerCertificat(CANDIDAT.examens[0], CANDIDAT);
     }
     return;
   }
+
   if (e.target.closest('#ea-revocation-mandat-modal-bouton-demarrer')) {
     e.preventDefault();
     const m = document.getElementById('modal-supprimer-mandat');
@@ -813,6 +914,7 @@ document.addEventListener('keydown', function (e) {
   const menu = document.getElementById('modal-menu-mobile');
   if (menu && menu.classList.contains('erpc-menu-open')) setMenuOpen(false);
 });
+
 /* =========================================================================
    GÉNÉRATION DU CERTIFICAT PDF
    ========================================================================= */
@@ -824,8 +926,7 @@ function telechargerCertificat(ex, user) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
 
-  // ---- En-tête ----
-  doc.setFillColor(0, 0, 145);                     // bleu Marianne
+  doc.setFillColor(0, 0, 145);
   doc.rect(0, 0, 210, 25, 'F');
   doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
@@ -835,7 +936,6 @@ function telechargerCertificat(ex, user) {
   doc.setFont('helvetica', 'normal');
   doc.text("Sécurité routière — Vivre, ensemble", 105, 19, { align: 'center' });
 
-  // ---- Titre ----
   doc.setTextColor(0, 0, 0);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(18);
@@ -844,12 +944,10 @@ function telechargerCertificat(ex, user) {
   doc.setFont('helvetica', 'normal');
   doc.text("Épreuve pratique du permis de conduire", 105, 53, { align: 'center' });
 
-  // ---- Cadre ----
   doc.setDrawColor(200, 200, 200);
   doc.setLineWidth(0.3);
   doc.rect(20, 65, 170, 130);
 
-  // ---- Informations candidat ----
   let y = 78;
   const addLine = (label, value) => {
     doc.setFont('helvetica', 'bold');
@@ -872,7 +970,6 @@ function telechargerCertificat(ex, user) {
   addLine("Examinateur :", ex.examinateur || '');
   addLine("Résultat :", ex.resultat || '');
 
-  // ---- Bandeau résultat ----
   y += 5;
   const favorable = (ex.resultat || '').toLowerCase().startsWith('fav');
   doc.setFillColor(favorable ? 0 : 180, favorable ? 144 : 0, 0);
@@ -882,7 +979,6 @@ function telechargerCertificat(ex, user) {
   doc.setFontSize(12);
   doc.text(ex.resultat || '', 105, y + 8, { align: 'center' });
 
-  // ---- Pied de page ----
   doc.setTextColor(120, 120, 120);
   doc.setFont('helvetica', 'italic');
   doc.setFontSize(9);
@@ -892,11 +988,9 @@ function telechargerCertificat(ex, user) {
     105, 285, { align: 'center' }
   );
 
-  // ---- Téléchargement ----
   const safeName = (user.nom || 'candidat').replace(/\s+/g, '_');
   doc.save(`certificat_${safeName}_${(ex.date || '').replace(/\//g, '-')}.pdf`);
 }
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </body></html>
