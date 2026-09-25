@@ -236,6 +236,26 @@
             </div>
             <!-- ===================== FIN BLOC FÉLICITATIONS ===================== -->
 
+            <!-- ===================== LA CONDUITE SUPERVISÉE (remontée) ===================== -->
+            <div class="fr-mt-4w">
+              <div class="fr-card fr-card--horizontal">
+                <div class="fr-card__header">
+                  <div class="fr-card__img">
+                    <img class="fr-responsive-img" src="./Mon espace candidat _ RdvPermis_files/conduite-supervisee.jpg" alt="" data-fr-js-ratio="true">
+                  </div>
+                </div>
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <p class="fr-h4">La conduite supervisée</p>
+                    <p>Elle est <span class="fr-text--bold">accessible pendant la formation initiale ou après échec à l'examen.</span></p>
+                    <p>Ce mode de formation vous permet d'<span class="fr-text--bold">acquérir davantage d'expérience et de confiance au volant</span> avant le passage de votre prochaine épreuve pratique.</p>
+                    <p class="fr-mb-0">N'hésitez pas à <span class="fr-text--bold">vous rapprocher de votre auto-école</span> pour en connaître les conditions et les modalités.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- ===================== FIN LA CONDUITE SUPERVISÉE ===================== -->
+
             <div class="sc-feUZmu dNQUZp">
 
               <!-- ===================== ACCORDÉON 0 — PRATIQUE ===================== -->
@@ -360,25 +380,7 @@
             </div>
           </div>
 
-          <div class="fr-mt-4w">
-            <div class="fr-card fr-card--horizontal">
-              <div class="fr-card__header">
-                <div class="fr-card__img">
-                  <img class="fr-responsive-img" src="./Mon espace candidat _ RdvPermis_files/conduite-supervisee.jpg" alt="" data-fr-js-ratio="true">
-                </div>
-              </div>
-              <div class="fr-card__body">
-                <div class="fr-card__content">
-                  <p class="fr-h4">La conduite supervisée</p>
-                  <p>Elle est <span class="fr-text--bold">accessible pendant la formation initiale ou après échec à l'examen.</span></p>
-                  <p>Ce mode de formation vous permet d'<span class="fr-text--bold">acquérir davantage d'expérience et de confiance au volant</span> avant le passage de votre prochaine épreuve pratique.</p>
-                  <p class="fr-mb-0">N'hésitez pas à <span class="fr-text--bold">vous rapprocher de votre auto-école</span> pour en connaître les conditions et les modalités.</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-
       </div>
 
       <div class="sc-dCFHLb iuispT fr-col-12">
@@ -567,65 +569,6 @@ function formatDateFr(input) {
 function toIso(input) {
   const p = parseDate(input);
   return p ? `${p.y}-${p.mo}-${p.d}` : '';
-}
-
-/* =========================================================================
-   TRANSFORMATION : ligne Supabase → forme attendue par le render
-   ========================================================================= */
-function transformCandidat(row) {
-  const examens = (row.examens || []).map(ex => {
-    const base = {
-      type:             ex.type,
-      date:             ex.date,
-      resultat:         ex.resultat,
-      centreExamen:     ex.centre_examen,
-      adresseCentre:    ex.adresse_centre,
-      examinateur:      ex.examinateur,
-      observations:     ex.observations,
-      certificat:       ex.certificat_url,
-      autoEcole:        row.auto_ecoles?.nom || ''
-    };
-    if ((ex.type || '').toLowerCase() === 'code') {
-      base.validite        = ex.validite;
-      base.dispensePratique = ex.dispense_pratique;
-    } else {
-      const map = new Map();
-      (ex.bilan_competences || [])
-        .slice()
-        .sort((a, b) => (a.ordre || 0) - (b.ordre || 0))
-        .forEach(b => {
-          if (!map.has(b.categorie)) map.set(b.categorie, []);
-          map.get(b.categorie).push({
-            nom:    b.competence,
-            points: b.points,
-            max:    b.points_max
-          });
-        });
-      base.bilan = Array.from(map.entries()).map(([categorie, competences]) => ({
-        categorie, competences
-      }));
-    }
-    return base;
-  });
-
-  examens.sort((a, b) => {
-    const pa = (a.type || '').toLowerCase() === 'pratique' ? 0 : 1;
-    const pb = (b.type || '').toLowerCase() === 'pratique' ? 0 : 1;
-    return pa - pb;
-  });
-
-  return {
-    email:            row.email,
-    nom:              row.nom,
-    neph:             row.neph,
-    dateNaissance:    row.date_naissance,
-    categoriePermis:  row.categorie_permis,
-    autoEcole: {
-      nom:   row.auto_ecoles?.nom   || '',
-      email: row.auto_ecoles?.email || ''
-    },
-    examens
-  };
 }
 
 /* =========================================================================
