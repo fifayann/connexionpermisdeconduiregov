@@ -45,6 +45,20 @@
     .admin-table tr:hover { background: #fafafa; }
     .admin-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 
+    /* ===================== BADGES EXAMENS ===================== */
+    .badge-current {
+      background: #b8fec9; color: #18753c;
+      padding: 2px 8px; border-radius: 4px;
+      font-size: 0.75rem; font-weight: 600;
+      display: inline-block;
+    }
+    .badge-previous {
+      background: #fee9e9; color: #ce0500;
+      padding: 2px 8px; border-radius: 4px;
+      font-size: 0.75rem; font-weight: 600;
+      display: inline-block;
+    }
+
     .modal {
       position: fixed; inset: 0; background: rgba(0,0,0,0.5);
       display: none; align-items: center; justify-content: center;
@@ -430,7 +444,6 @@ document.getElementById('new-btn').addEventListener('click', () => {
   document.getElementById('f-password').required = true;
   document.getElementById('f-email').disabled = false;
 
-  // Afficher les champs examens, cacher le hint
   document.getElementById('exam-edit-hint').style.display = 'none';
   document.getElementById('exam-create-fields').style.display = '';
 
@@ -464,7 +477,6 @@ async function openEdit(id) {
   document.getElementById('f-password').required = false;
   document.getElementById('f-email').disabled = true;
 
-  // En mode édition : cacher les champs d'examen, montrer le hint
   document.getElementById('exam-edit-hint').style.display = '';
   document.getElementById('exam-create-fields').style.display = 'none';
 
@@ -493,7 +505,6 @@ document.getElementById('candidate-form').addEventListener('submit', async e => 
     autoEcole: { nom: ecoleNom, email: ecoleMai }
   };
 
-  // En CRÉATION seulement : construire le tableau examens
   if (!id) {
     const examens = [];
 
@@ -593,6 +604,9 @@ async function openExamsModal(candidatId) {
   document.getElementById('modal-exams').classList.add('open');
 }
 
+/* =========================================================================
+   10-bis) LISTE DES EXAMENS avec badges Actuel / Antérieur
+   ========================================================================= */
 async function refreshExamsList(candidatId) {
   const listEl = document.getElementById('exams-list');
   listEl.innerHTML = '<div class="loader">Chargement…</div>';
@@ -608,9 +622,22 @@ async function refreshExamsList(candidatId) {
     listEl.innerHTML = '<p style="color:#888;font-style:italic;">Aucun examen enregistré.</p>';
     return;
   }
+
+  // Identifier l'examen le plus récent par type = "Actuel"
+  const currentIds = new Set();
+  ['Pratique', 'Code'].forEach(t => {
+    const found = data.find(e => (e.type || '').toLowerCase() === t.toLowerCase());
+    if (found) currentIds.add(found.id);
+  });
+
   listEl.innerHTML = `
     <table class="admin-table">
-      <thead><tr><th>Type</th><th>Date</th><th>Résultat</th><th>Centre</th><th>Actions</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Type</th><th>Date</th><th>Résultat</th>
+          <th>Centre</th><th>Statut</th><th>Actions</th>
+        </tr>
+      </thead>
       <tbody>
         ${data.map(e => `
           <tr>
@@ -618,6 +645,9 @@ async function refreshExamsList(candidatId) {
             <td>${escapeHtml(e.date || '—')}</td>
             <td>${escapeHtml(e.resultat || '—')}</td>
             <td>${escapeHtml(e.centre_examen || '—')}</td>
+            <td>${currentIds.has(e.id)
+              ? '<span class="badge-current">Actuel</span>'
+              : '<span class="badge-previous">Antérieur</span>'}</td>
             <td class="admin-actions">
               <button class="btn btn-secondary btn-sm" data-exam-action="edit" data-exam-id="${e.id}">Modifier</button>
               <button class="btn btn-danger btn-sm" data-exam-action="delete" data-exam-id="${e.id}">Supprimer</button>
@@ -666,6 +696,9 @@ document.getElementById('exams-list').addEventListener('click', async e => {
   }
 });
 
+/* =========================================================================
+   10-ter) SOUMISSION EXAMEN avec VALIDATION tentative antérieure
+   ========================================================================= */
 document.getElementById('exam-form').addEventListener('submit', async e => {
   e.preventDefault();
   hideExamError();
@@ -685,6 +718,46 @@ document.getElementById('exam-form').addEventListener('submit', async e => {
     observations:     document.getElementById('exam-observations').value.trim(),
     certificat:       document.getElementById('exam-certificat').value.trim() || null
   };
+
+  // ===== VALIDATION : tentative antérieure vs nouvelle tentative =====
+  if (!examId) {
+    const { data: existing, error: fetchErr } = await supabaseClient
+      .from('examens')
+      .select('date')
+      .eq('candidat_id', candidatId)
+      .ilike('type', payload.type)
+      .order('date', { ascending: false })
+      .limit(1);
+
+    if (!fetchErr && existing && existing.length && existing[0].date) {
+      const currentDate = existing[0].date;
+
+      if (payload.date === currentDate) {
+        showExamError(`Un examen de type "${payload.type}" existe déjà à la date du ${currentDate}.`);
+        return;
+      }
+
+      if (payload.date > currentDate) {
+        const ok = confirm(
+          `⚠️ ATTENTION\n\n` +
+          `L'examen "${payload.type}" actuel est daté du ${currentDate}.\n` +
+          `Vous ajoutez une tentative au ${payload.date}, donc PLUS RÉCENTE.\n\n` +
+          `Elle deviendra le nouvel examen "Actuel", et l'ancien passera en "Antérieur".\n\n` +
+          `Continuer ?`
+        );
+        if (!ok) return;
+      } else {
+        const ok = confirm(
+          `ℹ️ INFO\n\n` +
+          `L'examen "${payload.type}" actuel est daté du ${currentDate}.\n` +
+          `Votre nouvelle date (${payload.date}) est ANTÉRIEURE.\n\n` +
+          `Elle sera enregistrée comme TENTATIVE ANTÉRIEURE.\n\n` +
+          `Continuer ?`
+        );
+        if (!ok) return;
+      }
+    }
+  }
 
   const submitBtn = document.getElementById('exam-form-submit');
   submitBtn.disabled = true;
